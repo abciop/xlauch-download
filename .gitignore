@@ -1,0 +1,21 @@
+# ---------- 本地工具链（Go SDK 等，体积大，不入库） ----------
+/tools/
+
+# ---------- 构建产物 ----------
+/dist/
+/code/tdm/*.exe
+/code/tdm/cmd/*/*.exe
+*.test
+*.prof
+*.cover
+
+# ---------- 运行时/测试临时产物 ----------
+*.tdm.btstate
+/coverage/
+*.log
+
+# ---------- IDE / 系统 ----------
+/.idea/
+/.vscode/
+Thumbs.db
+desktop.ini

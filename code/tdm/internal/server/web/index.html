@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xlauch 下载器</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="menubar" id="menubar">
+  <div class="menu">
+    <button class="mtitle">任务(T)</button>
+    <div class="dropdown">
+      <button class="mitem" data-cmd="add">添加下载</button>
+      <button class="mitem" data-cmd="openTorrent">打开BT种子…</button>
+      <button class="mitem" data-cmd="startAll">全部开始</button>
+      <button class="mitem" data-cmd="pauseAll">全部暂停</button>
+      <div class="msep"></div>
+      <button class="mitem" data-cmd="quit">退出</button>
+    </div>
+  </div>
+  <div class="menu">
+    <button class="mtitle">文件(F)</button>
+    <div class="dropdown">
+      <button class="mitem" data-cmd="openDir">打开下载文件夹</button>
+      <button class="mitem" data-cmd="clipboard">从剪贴板添加 URL</button>
+    </div>
+  </div>
+  <div class="menu">
+    <button class="mtitle">下载(D)</button>
+    <div class="dropdown">
+      <button class="mitem" data-cmd="resume">恢复选中</button>
+      <button class="mitem" data-cmd="pause">暂停选中</button>
+      <button class="mitem" data-cmd="remove">删除选中</button>
+      <div class="msep"></div>
+      <button class="mitem" data-cmd="refresh">刷新</button>
+      <button class="mitem danger" data-cmd="clear">清空所有任务</button>
+    </div>
+  </div>
+  <div class="menu">
+    <button class="mtitle">设置(S)</button>
+    <div class="dropdown">
+      <button class="mitem" data-cmd="engines">引擎</button>
+      <button class="mitem" data-cmd="settings">选项/设置</button>
+      <div class="msep"></div>
+      <button class="mitem" data-cmd="theme">切换浅色/暗黑主题</button>
+    </div>
+  </div>
+  <div class="menu">
+    <button class="mtitle">帮助(H)</button>
+    <div class="dropdown">
+      <button class="mitem" data-cmd="extension">插件下载与使用…</button>
+      <button class="mitem" data-cmd="website">跳转官网</button>
+    </div>
+  </div>
+</nav>
+
+<div class="toolbar">
+  <button class="tbtn" id="tb-add"><span class="ti">➕</span>添加 ▾</button>
+  <span class="tsep"></span>
+  <button class="tbtn" id="tb-resume"><span class="ti">▶</span>恢复</button>
+  <button class="tbtn" id="tb-pause"><span class="ti">⏸</span>暂停</button>
+  <button class="tbtn" id="tb-pauseall"><span class="ti">⏹</span>全部暂停</button>
+  <button class="tbtn" id="tb-remove"><span class="ti">🗑</span>删除</button>
+  <button class="tbtn" id="tb-opendir"><span class="ti">📂</span>打开目录</button>
+  <span class="grow"></span>
+  <button class="tbtn" id="tb-batch"><span class="ti">📑</span>批量m3u8</button>
+</div>
+
+<div class="main">
+  <aside class="sidebar">
+    <div class="sgroup">
+      <div class="stitle">任务</div>
+      <button class="sitem active" data-s="all">📦 所有下载 <i id="c-all">0</i></button>
+      <button class="sitem" data-s="downloading">⬇ 正在下载 <i id="c-downloading">0</i></button>
+      <button class="sitem" data-s="paused">⏸ 已暂停 <i id="c-paused">0</i></button>
+      <button class="sitem" data-s="done">✅ 已完成 <i id="c-done">0</i></button>
+      <button class="sitem" data-s="error">⚠ 失败 <i id="c-error">0</i></button>
+    </div>
+    <div class="sgroup">
+      <div class="stitle">分类</div>
+      <button class="sitem active" data-c="all">🗂 全部分类</button>
+      <button class="sitem" data-c="video">🎬 视频 <i id="c-video">0</i></button>
+      <button class="sitem" data-c="image">🏞️ 图片 <i id="c-image">0</i></button>
+      <button class="sitem" data-c="music">🎵 音乐 <i id="c-music">0</i></button>
+      <button class="sitem" data-c="app">💠 程序 <i id="c-app">0</i></button>
+      <button class="sitem" data-c="archive">🗜 压缩包 <i id="c-archive">0</i></button>
+      <button class="sitem" data-c="doc">📄 文档 <i id="c-doc">0</i></button>
+      <button class="sitem" data-c="other">❓ 其他 <i id="c-other">0</i></button>
+    </div>
+    <div class="sgrow"></div>
+    <div class="themebox">
+      <span class="tb-label">暗黑模式</span>
+      <label class="switch" title="切换浅色/暗黑主题"><input type="checkbox" id="theme-switch"><span class="sl"></span></label>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="addbar">
+      <input type="text" id="url-input" placeholder="粘贴链接：直链 / m3u8 / 磁力 / 种子 / 网页视频 — 自动识别类型">
+      <button class="btn" id="btn-add">＋ 新建下载 ▾</button>
+    </div>
+    <div class="tablewrap">
+      <table class="ttable">
+        <thead>
+          <tr>
+            <th class="col-check"><input type="checkbox" id="check-all" title="全选"></th>
+            <th class="col-name">名称</th>
+            <th class="col-size">大小</th>
+            <th class="col-prog">进度</th>
+            <th class="col-speed">速度</th>
+            <th class="col-status">状态</th>
+            <th class="col-eta">剩余时间</th>
+            <th class="col-op">操作</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty-state" style="display:none;">
+        <div class="big">⚡</div>
+        <p>还没有下载任务</p>
+        <p class="sub">点击"添加URL"或"新建下载"，也可以直接粘贴链接（支持浏览器捕获剪贴板）</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="statusbar">
+  <span id="sb-count">0 个任务</span>
+  <span id="sb-speed">总速度: 0 B/s</span>
+  <span class="grow"></span>
+  <span id="sb-dir"></span>
+</footer>
+
+<!-- 视频分析弹窗 -->
+<div class="mask" id="mask-video">
+  <div class="modal">
+    <h2>选择画质 <span style="font-weight:400;color:var(--text2);font-size:12.5px;" id="v-site"></span><button class="iconbtn x" data-close>✕</button></h2>
+    <div class="vinfo">
+      <img id="v-thumb" src="" onerror="this.style.visibility='hidden'">
+      <div>
+        <div class="vi-t" id="v-title">分析中...</div>
+        <div class="vi-s" id="v-sub"></div>
+      </div>
+    </div>
+    <div class="fmtgrid" id="v-formats"></div>
+    <div class="mrow">
+      <input type="text" id="v-dir" placeholder="下载目录（默认使用设置中的目录）">
+      <button class="btn" id="v-download">下载选中画质</button>
+    </div>
+  </div>
+</div>
+
+<!-- 批量 m3u8 弹窗 -->
+<div class="mask" id="mask-batch">
+  <div class="modal">
+    <h2>m3u8 批量下载 <button class="iconbtn x" data-close>✕</button></h2>
+    <textarea class="batch" id="batch-input" placeholder="每行一个 m3u8 链接"></textarea>
+    <div class="mrow" style="margin-top:12px;">
+      <input type="text" id="batch-dir" placeholder="下载目录（可选）">
+      <button class="btn" id="batch-go">全部添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- 设置弹窗（分组式选项页，TDM Fast 风格） -->
+<div class="mask" id="mask-settings">
+  <div class="modal" style="width:min(660px,92vw);">
+    <h2>选项 <button class="iconbtn x" data-close>✕</button></h2>
+    <div class="cfg-group">基本</div>
+    <div class="formrow"><label>下载目录</label><input type="text" id="cfg-dir"><button class="btn ghost sm" id="cfg-browse">浏览</button><button class="btn ghost sm" id="cfg-open-dir">打开</button></div>
+    <div class="formrow"><label>同时任务数</label><input type="number" id="cfg-active" min="1" max="16"><span class="hint">同时运行的最大任务数</span></div>
+    <div class="formrow"><label>运行端口</label><input type="number" id="cfg-port" min="1" max="65535"><span class="hint">默认 50710，被占用时自动顺延；修改后重启生效</span></div>
+    <div class="formrow"><label>运行地址</label><a class="addrlink" id="cfg-addr" href="#" target="_blank">--</a><button class="btn ghost sm" id="cfg-open-browser">浏览器打开</button></div>
+    <div class="cfg-group">速度与下载</div>
+    <div class="formrow"><label>并发线程</label><input type="number" id="cfg-threads" min="1" max="64"><span class="hint">HTTP 分块并发；BT 为其 2 倍的在途块数，建议 8-32</span></div>
+    <div class="formrow"><label>m3u8 分片并发</label><input type="number" id="cfg-hls" min="1" max="64"></div>
+    <div class="formrow"><label>BT 最大连接</label><input type="number" id="cfg-peers" min="4" max="200"></div>
+    <div class="cfg-group">代理设置</div>
+    <div class="formrow"><label>代理服务器</label><input type="text" id="cfg-proxy" placeholder="http://127.0.0.1:7890 或 socks5://..."></div>
+    <div class="note">常见：Clash 用 HTTP 端口 7890；v2rayN 用 SOCKS 端口 10808。代理对下载与视频解析同时生效。</div>
+    <div class="cfg-group">视频 Cookies</div>
+    <div class="formrow"><label>读取浏览器</label><select id="cfg-cookies-browser"><option value="">不使用</option><option value="chrome">Chrome</option><option value="edge">Edge</option><option value="firefox">Firefox</option></select></div>
+    <div class="note">抖音 / B站 等站点下载高清或会员内容需要登录 Cookie。新版 Chrome/Edge 对 Cookie 有应用级加密，直接读取可能失败；推荐使用 XDM 浏览器扩展（自动携带登录态），Firefox 通常可直接读取。</div>
+    <div class="formrow"><label>cookies.txt</label><span class="cstat" id="cfg-cookies-stat">未导入</span><button class="btn ghost sm" id="cfg-cookies-import">导入 cookies.txt...</button><button class="btn ghost sm" id="cfg-cookies-clear">清除</button></div>
+    <div class="formrow"><label>已导入站点</label><div class="csites" id="cfg-cookie-sites"><span class="cnone">暂无</span></div></div>
+    <div class="note">YouTube 提示"请登录以确认你不是机器人"时需要登录态：① 用 Chrome/Edge 登录后，通过 XDM 浏览器扩展下载一次（自动记住）；② 用 Get cookies.txt LOCALLY 等扩展导出 youtube.com 的 cookies.txt，点上方「导入」。Cookie 仅保存在本机数据目录，不会上传。</div>
+    <div class="cfg-group">行为</div>
+    <div class="formrow"><label>剪贴板监听</label><label class="switch"><input type="checkbox" id="cfg-clip"><span class="sl"></span></label><span class="hint">发现下载链接时提示</span></div>
+    <div class="formrow"><label>m3u8 转 MP4</label><label class="switch"><input type="checkbox" id="cfg-mp4"><span class="sl"></span></label><span class="hint">需 ffmpeg，仅转封装不重编码</span></div>
+    <div class="formrow"><label>关闭方式</label><select id="cfg-close"><option value="tray">隐藏到托盘</option><option value="exit">直接退出</option></select><span class="hint">关闭主窗口时的行为</span></div>
+    <div class="cfg-group">界面语言</div>
+    <div class="formrow"><label>界面语言</label><select id="cfg-lang"><option value="zh-CN">简体中文</option></select><span class="hint">语言更改将在重启后生效</span></div>
+    <div class="cfg-foot">
+      <button class="btn ghost" id="cfg-reset">恢复默认</button>
+      <span class="grow"></span>
+      <button class="btn ghost" id="cfg-cancel">取消</button>
+      <button class="btn" id="cfg-save">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 工具弹窗 -->
+<div class="mask" id="mask-tools">
+  <div class="modal" style="width:min(560px,92vw);">
+    <h2>下载引擎 <button class="iconbtn x" data-close>✕</button></h2>
+    <div class="toolrow">
+      <div class="ti">🎬</div>
+      <div class="tn"><b>yt-dlp <span id="t-ytdlp-st" class="no">未安装</span></b><span id="t-ytdlp-ver">支持 1800+ 站点视频解析（YouTube/Bilibili/TikTok 等，最高 4K），首次使用需下载（约 17MB）</span></div>
+      <button class="btn ghost" id="t-ytdlp-btn">下载</button>
+    </div>
+    <div class="toolrow">
+      <div class="ti">🎛️</div>
+      <div class="tn"><b>ffmpeg <span id="t-ffmpeg-st" class="no">未安装</span></b><span id="t-ffmpeg-ver">视频流合并与转封装（m3u8 → MP4、音视频合并），按需下载（约 180MB）</span></div>
+      <button class="btn ghost" id="t-ffmpeg-btn">下载</button>
+    </div>
+    <p class="toolnote">
+      说明：本体引擎（多线程 HTTP / m3u8 / BT-DHT）为内置实现，无任何外部依赖。<br>
+      yt-dlp 与 ffmpeg 为可选组件，仅在需要时从 GitHub 官方源下载到本地数据目录。
+    </p>
+  </div>
+</div>
+
+<!-- 删除确认弹窗 -->
+<div class="mask" id="mask-delete">
+  <div class="modal delmodal">
+    <h2>删除任务</h2>
+    <div class="delmsg" id="del-msg"></div>
+    <div class="delacts">
+      <button class="btn ghost" id="del-cancel">取消</button>
+      <button class="btn ghost" id="del-record">普通删除（仅移除任务）</button>
+      <button class="btn danger" id="del-file">强制删除（含下载文件）</button>
+    </div>
+  </div>
+</div>
+
+<!-- 浏览器扩展插件弹窗 -->
+<div class="mask" id="mask-ext">
+  <div class="modal" style="width:min(620px,92vw);">
+    <h2>浏览器扩展插件 <button class="iconbtn x" data-close>✕</button></h2>
+    <div class="cfg-group">安装（约 30 秒）</div>
+    <div class="ext-step">
+      <div class="ext-no">1</div>
+      <div class="ext-bd">
+        <b>解压扩展到本机</b>
+        <div class="ext-path" id="ext-path">尚未解压 — 点击右侧按钮开始</div>
+        <div class="ext-acts">
+          <button class="btn ghost sm" id="ext-prepare">解压扩展到本机</button>
+          <button class="btn ghost sm" id="ext-opendir" style="display:none;">打开目录</button>
+        </div>
+      </div>
+    </div>
+    <div class="ext-step">
+      <div class="ext-no">2</div>
+      <div class="ext-bd">
+        <b>打开浏览器扩展管理页，开启右上角「开发者模式」开关</b>
+        <div class="ext-acts">
+          <button class="btn ghost sm" id="ext-chrome">Chrome 扩展页</button>
+          <button class="btn ghost sm" id="ext-edge">Edge 扩展页</button>
+        </div>
+      </div>
+    </div>
+    <div class="ext-step">
+      <div class="ext-no">3</div>
+      <div class="ext-bd">
+        <b>加载扩展</b>
+        <div class="ext-path">点「加载已解压的扩展程序」，选择第 1 步解压出的目录（可先点上方「打开目录」确认位置）</div>
+      </div>
+    </div>
+    <div class="ext-note">受浏览器安全限制，任何程序都无法静默安装扩展；XDM 已把流程压缩到最短。安装一次后长期有效，XDM 升级无需重装。</div>
+    <div class="cfg-group">功能与使用说明</div>
+    <div class="ext-guide">
+      <div>🎯 <b>资源嗅探</b> — 播放视频后点扩展图标，本页视频/音频全部列出（显示文件名与大小），点击即添加到 XDM</div>
+      <div>✨ <b>悬停下载</b> — 鼠标在视频 / 大图 / 下载链接上停留约 0.4 秒，右上角弹出「下载」浮条，点一下即添加；浮条上的 ✕ 可本次忽略该资源</div>
+      <div>🖱 <b>右键推送</b> — 网页链接 / 图片 / 视频右键 →「使用 XDM 下载…」直接创建任务</div>
+      <div>🍪 <b>导出登录 Cookie</b> — 在抖音 / B站 / YouTube 等已登录页面一键导出，XDM 下载该站点自动携带登录态（含 httpOnly）</div>
+      <div>🔌 <b>端口</b> — 默认连接 127.0.0.1:50710；修改过 XDM 端口时在扩展弹窗「连接设置」里同步</div>
+    </div>
+    <div class="ext-foot">
+      <a class="addrlink" href="/api/extension/zip" download>下载扩展 zip 包</a>
+      <span class="grow"></span>
+      <button class="btn" data-close>完成</button>
+    </div>
+  </div>
+</div>
+
+<!-- 任务右键菜单 -->
+<div class="ctxmenu" id="ctx-menu"></div>
+
+<!-- 剪贴板提示 -->
+<div class="toast" id="toast">
+  <div class="tt">📡 检测到下载链接</div>
+  <div class="tu" id="toast-url"></div>
+  <div class="trow">
+    <button class="btn ghost" id="toast-no">忽略</button>
+    <button class="btn" id="toast-yes">添加下载</button>
+  </div>
+</div>
+
+<!-- 拖拽种子文件提示遮罩 -->
+<div class="drop-hint" id="drop-hint">
+  <div class="drop-card">
+    <div class="dico">🧲</div>
+    <b>松开以添加下载任务</b>
+    <span>支持 .torrent 种子文件，或直接拖入链接文本</span>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xlauch 下载器 (XDM) — 极速多协议下载工具</title>
+<meta name="description" content="Xlauch 下载器：多线程 HTTP、m3u8 视频流、磁力 BT、1800+ 站点视频解析、抖音专用解析、浏览器扩展与 Cookie 登录态下载，单文件绿色版，完全免费。">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== 导航栏 ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="logo.png" alt="XDM logo">
+      <span>Xlauch <em>下载器</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">功能特性</a>
+      <a href="#guide">使用帮助</a>
+      <a href="#extension">浏览器扩展</a>
+      <a href="#faq">常见问题</a>
+      <a class="nav-dl" href="#download">立即下载</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge">v1.0 · Windows 单文件绿色版 · 完全免费</div>
+      <h1>极速下载<br><span class="grad">尽在掌控</span></h1>
+      <p class="hero-sub">
+        多线程 HTTP · m3u8 视频流 · 磁力 BT · 1800+ 站点视频解析 · 浏览器扩展一键接管<br>
+        一个 8.7MB 的 exe，替代你电脑里所有下载工具。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="#download">
+          <svg viewBox="0 0 24 24" class="ic"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          免费下载 for Windows
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#features">了解功能 →</a>
+      </div>
+      <div class="hero-meta">
+        <span>✓ 无广告</span><span>✓ 无追踪</span><span>✓ 无需安装</span><span>✓ 断点续传</span>
+      </div>
+    </div>
+
+    <!-- 应用界面仿真模型（纯 CSS 绘制） -->
+    <div class="hero-mock" aria-hidden="true">
+      <div class="app-win">
+        <div class="mock-titlebar">
+          <span class="win-dots"><i></i><i></i><i></i></span>
+          <span class="win-title">Xlauch 下载器</span>
+          <span class="win-btns"><i></i><i></i><i class="close"></i></span>
+        </div>
+        <div class="mock-menubar">
+          <span>任务(T)</span><span>文件(F)</span><span>下载(D)</span><span>设置(S)</span><span>帮助(H)</span>
+          <span class="mb-right">🌙</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-side">
+            <div class="side-cap">任务状态</div>
+            <div class="side-item active">📥 全部任务 <i>6</i></div>
+            <div class="side-item">⬇ 下载中 <i>2</i></div>
+            <div class="side-item">⏸ 已暂停 <i>1</i></div>
+            <div class="side-item">✅ 已完成 <i>3</i></div>
+            <div class="side-cap" style="margin-top:10px">分类</div>
+            <div class="side-item">🎬 视频 <i>3</i></div>
+            <div class="side-item">🎵 音频 <i>1</i></div>
+            <div class="side-item">🗜 压缩包 <i>1</i></div>
+            <div class="side-item">📄 文档 <i>1</i></div>
+            <div class="side-grow"></div>
+            <div class="side-theme">暗黑模式 <span class="pill"></span></div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-addbar">
+              <div class="mock-input">https://www.douyin.com/video/75346…</div>
+              <div class="mock-go">下载</div>
+            </div>
+            <div class="mock-task">
+              <div class="tk-ico">🎬</div>
+              <div class="tk-info">
+                <div class="tk-name">4K 城市夜景航拍.mp4</div>
+                <div class="tk-bar"><i style="width:72%"></i></div>
+              </div>
+              <div class="tk-meta">72%<br><small>12.4 MB/s</small></div>
+            </div>
+            <div class="mock-task">
+              <div class="tk-ico">🔗</div>
+              <div class="tk-info">
+                <div class="tk-name">ubuntu-24.04-desktop-amd64.iso</div>
+                <div class="tk-bar"><i style="width:34%"></i></div>
+              </div>
+              <div class="tk-meta">34%<br><small>28.1 MB/s</small></div>
+            </div>
+            <div class="mock-task">
+              <div class="tk-ico">🧲</div>
+              <div class="tk-info">
+                <div class="tk-name">magnet:?xt=urn:btih:9a03e6b2…</div>
+                <div class="tk-bar"><i style="width:58%"></i></div>
+              </div>
+              <div class="tk-meta">58%<br><small>3.6 MB/s</small></div>
+            </div>
+            <div class="mock-task done">
+              <div class="tk-ico">🎵</div>
+              <div class="tk-info"><div class="tk-name">夏日歌单合集.m4a</div></div>
+              <div class="tk-meta ok">✓ 完成</div>
+            </div>
+          </div>
+        </div>
+        <div class="mock-statusbar">6 个任务&nbsp;&nbsp;|&nbsp;&nbsp;总速度: 44.1 MB/s&nbsp;&nbsp;|&nbsp;&nbsp;保存到 d:\xdm</div>
+      </div>
+      <div class="mock-float f1">⚡ 多线程加速</div>
+      <div class="mock-float f2">🧲 BT · DHT</div>
+      <div class="mock-float f3">🎬 4K 视频解析</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 数据条 ===== -->
+<section class="stats">
+  <div class="stat"><b>5</b><span>大下载引擎<br>HTTP / HLS / BT / 视频 / 抖音</span></div>
+  <div class="stat"><b>1800+</b><span>支持的视频站点<br>YouTube · B站 · TikTok …</span></div>
+  <div class="stat"><b>8.7<small>MB</small></b><span>单文件绿色版<br>无需安装开箱即用</span></div>
+  <div class="stat"><b>100%</b><span>免费无广告<br>不收集任何数据</span></div>
+</section>
+
+<!-- ===== 功能特性 ===== -->
+<section class="section" id="features">
+  <div class="sec-head">
+    <div class="sec-tag">FEATURES</div>
+    <h2>一个工具，<span class="grad">全协议覆盖</span></h2>
+    <p>从普通文件到加密流媒体，从磁力种子到短视频平台，全部拿下。</p>
+  </div>
+  <div class="feature-grid">
+
+    <div class="fcard">
+      <div class="fico" style="--c:#3b6ef5">⚡</div>
+      <h3>多线程 HTTP 加速</h3>
+      <p>动态分片并发下载，智能调度榨干每一分带宽；中断重开自动断点续传，任务永不作废。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#7c5cff">🎬</div>
+      <h3>m3u8 / HLS 流媒体</h3>
+      <p>直播流、点播流一键抓取，分片高并发下载后自动合并，配合 ffmpeg 无损转封装为 MP4。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#16a34a">🧲</div>
+      <h3>磁力链接 &amp; BT</h3>
+      <p>内置 DHT 分布式网络，没有 tracker 也能发现节点；支持磁力与 .torrent 种子（拖拽 / 菜单打开），分片 SHA1 逐块校验保证完整。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#e8710a">🌐</div>
+      <h3>1800+ 视频站点</h3>
+      <p>集成 yt-dlp 内核，YouTube、Bilibili、TikTok 等平台通吃，自动列出全部画质，最高支持 4K。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#fe2c55">🎵</div>
+      <h3>抖音专用解析</h3>
+      <p>内置无头浏览器完成平台签名校验，公开作品免登录直接解析；导入登录 Cookie 后，登录可见内容同样能下。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#0866ff">📋</div>
+      <h3>剪贴板监听</h3>
+      <p>复制链接即弹出下载提示；抖音/快手分享文案里的真实链接也能自动提取，告别手动删字。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#0ea5e9">🧩</div>
+      <h3>浏览器扩展一键接管</h3>
+      <p>Chrome / Edge 扩展：网页视频/音频资源自动嗅探入列（显示文件名与大小，点击即下）、右键推送链接、一键导出站点登录 Cookie。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#b45309">🍪</div>
+      <h3>Cookie 登录态下载</h3>
+      <p>三级来源自动择优：扩展推送 &gt; cookies.txt &gt; 读取本机浏览器；会员视频、登录可见内容也能顺利下载。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#c2410c">🗂</div>
+      <h3>智能任务管理</h3>
+      <p>按状态与类型双维度过滤，批量暂停/恢复/删除，右键菜单直达，删除时可选择是否保留文件。</p>
+    </div>
+
+    <div class="fcard">
+      <div class="fico" style="--c:#334155">🌙</div>
+      <h3>深色模式 &amp; 托盘常驻</h3>
+      <p>精致暗黑主题一键切换；关闭窗口自动收进系统托盘，后台静默继续下载，互不打扰。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 使用帮助 ===== -->
+<section class="section section-alt" id="guide">
+  <div class="sec-head">
+    <div class="sec-tag">GUIDE</div>
+    <h2>四步开启，<span class="grad">极速之旅</span></h2>
+    <p>没有注册、没有配置，下载即用。</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-no">1</div>
+      <h3>下载运行</h3>
+      <p>获取 <code>XDM.exe</code>，双击直接运行。单文件绿色版，不写注册表、不留垃圾，想删随时删。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">2</div>
+      <h3>添加任务</h3>
+      <p>把 HTTP 直链、磁力链接、m3u8 地址或视频页链接粘贴到顶部输入框；开启剪贴板监听后，复制链接即自动提示。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">3</div>
+      <h3>选择画质</h3>
+      <p>视频链接会自动解析出全部可用画质（最高 4K），勾选想要的清晰度即可开始下载，抖音链接无需登录直接解析。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">4</div>
+      <h3>管理下载</h3>
+      <p>随时暂停/恢复/重试，按分类快速筛选，右键呼出快捷菜单；关窗口进托盘，下载完成后自动落盘。</p>
+    </div>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <b>💡 小技巧：菜单栏</b>
+      <p>顶部「任务 / 文件 / 下载 / 设置 / 帮助」菜单涵盖全部操作：全部开始、打开BT种子、清空任务、从剪贴板添加、打开下载文件夹等。</p>
+    </div>
+    <div class="tip">
+      <b>⚙️ 首次使用视频解析？</b>
+      <p>首次解析站点视频会自动下载 yt-dlp 内核（约 17MB）；m3u8 转 MP4 需要 ffmpeg，同样按需自动安装，全程无需手动干预。</p>
+    </div>
+    <div class="tip">
+      <b>🧩 浏览器扩展：嗅探 + Cookie</b>
+      <p>安装扩展后，网页里的视频/音频资源自动探测入列并显示文件名，点击即下载；在抖音、B站、YouTube 等登录页一键「导出登录 Cookie」，XDM 下载该站点时自动携带登录态。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 浏览器扩展 ===== -->
+<section class="section" id="extension">
+  <div class="sec-head">
+    <div class="sec-tag">EXTENSION</div>
+    <h2>浏览器扩展，<span class="grad">一键接管</span></h2>
+    <p>Chrome / Edge 装上配套扩展，网页里的资源与登录态全部交给 XDM。</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-no">1</div>
+      <h3>下载扩展包</h3>
+      <p>点击下方按钮下载 <code>xdm-browser-extension.zip</code>（约 9 KB，绿色免安装）。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">2</div>
+      <h3>解压到固定目录</h3>
+      <p>解压到任意长期保留的目录（如 <code>d:\xdm-extension</code>）；目录不要删除或移动，扩展会一直从这里运行。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">3</div>
+      <h3>打开扩展管理页</h3>
+      <p>地址栏输入 <code>chrome://extensions</code>（Edge 为 <code>edge://extensions</code>），打开右上角的「开发者模式」开关。</p>
+    </div>
+    <div class="step">
+      <div class="step-no">4</div>
+      <h3>加载扩展</h3>
+      <p>点击「加载已解压的扩展程序」，选择解压出的文件夹；工具栏出现 XDM 图标即安装成功，建议固定到工具栏。</p>
+    </div>
+  </div>
+
+  <div class="ext-dl">
+    <a class="btn btn-primary btn-lg" href="xdm-browser-extension.zip" download>
+      <svg viewBox="0 0 24 24" class="ic"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      下载浏览器扩展（9 KB）
+    </a>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <b>🎯 资源嗅探，点击即下</b>
+      <p>播放视频后点击扩展图标，本页探测到的视频/音频资源全部列出，并显示文件名与大小；点击任意一条立即添加到 XDM 下载。鼠标在视频、大图、下载链接上停留片刻，右上角还会弹出「下载」浮条，一键抓取。</p>
+    </div>
+    <div class="tip">
+      <b>🖱 右键一键推送</b>
+      <p>网页中的链接、图片、视频上点右键 →「使用 XDM 下载此链接 / 图片 / 媒体」，无需复制粘贴直接创建任务。</p>
+    </div>
+    <div class="tip">
+      <b>🍪 导出登录 Cookie</b>
+      <p>在抖音、B站、YouTube 等已登录页面点击「导出登录 Cookie」，XDM 之后解析下载该站点时自动携带登录态（含 httpOnly），登录可见内容也能下。</p>
+    </div>
+    <div class="tip">
+      <b>🔌 端口说明</b>
+      <p>扩展默认连接本机 50710 端口；若在 XDM 设置中修改过监听端口，请在扩展弹窗的「连接设置」里改成一致的值并保存。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq">
+  <div class="sec-head">
+    <div class="sec-tag">FAQ</div>
+    <h2>常见<span class="grad">问题</span></h2>
+  </div>
+  <div class="faq-list">
+    <details open>
+      <summary>支持哪些操作系统？<i>+</i></summary>
+      <p>目前支持 Windows 10 / 11（64 位）。界面基于系统自带的 WebView2 渲染，一般无需额外安装运行时；若系统缺失 WebView2，程序会自动回退到默认浏览器打开界面，功能完全一致。</p>
+    </details>
+    <details>
+      <summary>是免费软件吗？有广告或捆绑吗？<i>+</i></summary>
+      <p>完全免费，无广告、无弹窗、无捆绑、不收集任何用户数据。程序仅监听本机回环地址（127.0.0.1），所有网络请求只用于下载任务本身。</p>
+    </details>
+    <details>
+      <summary>下载的视频保存在哪里？可以改吗？<i>+</i></summary>
+      <p>默认保存到 <code>d:\xdm</code>（首次下载时自动创建），可在「设置 → 下载目录」中修改，也支持为单个任务临时指定目录。底部状态栏会实时显示当前保存位置。</p>
+    </details>
+    <details>
+      <summary>关闭窗口后下载会中断吗？<i>+</i></summary>
+      <p>不会。默认行为是关闭/最小化时收进系统托盘，后台继续下载；也可以在「设置 → 关闭方式」中改为「直接退出」。托盘右键可随时退出程序。</p>
+    </details>
+    <details>
+      <summary>抖音视频解析失败怎么办？<i>+</i></summary>
+      <p>公开作品无需登录即可直接解析；私密或作者设置了权限的作品属于平台限制，程序会返回明确提示。若个别视频解析超时，重试一次即可（首次解析需建立会话，稍慢）。</p>
+    </details>
+    <details>
+      <summary>会员视频 / 登录后才能看的视频怎么下载？<i>+</i></summary>
+      <p>在浏览器里登录站点后，通过浏览器扩展一键「导出登录 Cookie」，XDM 下载该站点时自动携带登录态；也可以在设置中导入 cookies.txt 文件，或让 XDM 直接读取本机浏览器 Cookie（Chrome / Edge / Firefox）。三种来源按「扩展推送 &gt; cookies.txt &gt; 读取浏览器」自动择优。</p>
+    </details>
+    <details>
+      <summary>浏览器扩展怎么安装？具体能做什么？<i>+</i></summary>
+      <p>下载扩展 zip 包解压后，在 Chrome / Edge 的「扩展程序」页打开开发者模式，选择「加载已解压的扩展程序」即可。功能：自动嗅探网页中的视频/音频资源（显示文件名与大小，点击即下载）、右键菜单把链接推送给 XDM、一键导出当前站点的登录 Cookie（含 httpOnly）。详细图文见上方<a href="#extension">「浏览器扩展」专区</a>。</p>
+    </details>
+    <details>
+      <summary>支持代理吗？<i>+</i></summary>
+      <p>支持。在「设置 → 代理服务器」中填入 http 或 socks5 代理地址，用于站点视频解析等场景。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 下载 ===== -->
+<section class="section dl-section" id="download">
+  <div class="dl-card">
+    <div class="dl-glow" aria-hidden="true"></div>
+    <img class="dl-logo" src="logo.png" alt="">
+    <h2>准备好提速了吗？</h2>
+    <p class="dl-sub">单文件 · 8.7 MB · Windows 10/11 · 自带数字签名</p>
+    <a class="btn btn-primary btn-xl" href="XDM.exe" download>
+      <svg viewBox="0 0 24 24" class="ic"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      下载 XDM.exe
+    </a>
+    <a class="btn btn-ghost btn-lg" href="xdm-browser-extension.zip" download>
+      🧩 浏览器扩展 xdm-browser-extension.zip（9 KB）
+    </a>
+    <div class="dl-info">
+      <span>📦 文件大小 8.7 MB</span>
+      <span>🪟 Windows 10 / 11</span>
+      <span>🔐 SHA-256 已校验</span>
+    </div>
+    <details class="sha">
+      <summary>SHA-256 校验值</summary>
+      <code>DB19E6F2580A9447FB8609FA5A2F57966D84932AB0F013CB3D01A25BA62097CE</code>
+    </details>
+    <p class="dl-note">下载后双击即可运行，无需安装。若浏览器提示未知发布者，选择「仍要运行」即可（XDM 已使用 Xlauch 自签名证书）。</p>
+  </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <img src="logo.png" alt="">
+      <span>Xlauch 下载器</span>
+    </div>
+    <div class="foot-links">
+      <a href="#features">功能</a><a href="#guide">帮助</a><a href="#faq">FAQ</a><a href="#download">下载</a>
+    </div>
+    <p class="foot-copy">© 2026 Xlauch · xdm.xlauch.com · 用 ❤️ 与 Go 打造</p>
+    <p class="foot-beian">
+      <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer">闽ICP备15014790号</a>
+      <span class="beian-sep">|</span>
+      <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" rel="noopener noreferrer">闽ICP备15014790号-7</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ===== 返回顶部 ===== -->
+<button class="backtop" id="backtop" title="返回顶部" aria-label="返回顶部">
+  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="app.js"></script>
+</body>
+</html>
