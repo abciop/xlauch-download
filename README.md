@@ -4,7 +4,8 @@
 >
 > Windows 单文件绿色版，界面基于系统 WebView2 渲染，完全免费、无广告、不收集数据。
 
-官网页面：[`code/website/index.html`](code/website/index.html)（浏览器直接打开即可预览）
+- 官网：<https://xdm.xlauch.com>
+- 官网源码：[`code/website/index.html`](code/website/index.html)（浏览器直接打开即可预览）
 
 ---
 
